@@ -3,339 +3,228 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta name="theme-color" content="#1a0a2e">
+<meta name="theme-color" content="#2e1800">
 <title>玄機閣・AI算命</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0d0618;
-    --bg2: #1a0a2e;
     --gold: #c9a84c;
     --gold-light: #f0d080;
     --red: #c0392b;
-    --red-light: #e74c3c;
     --text: #f5e6c8;
-    --text-dim: #9a8570;
-    --jade: #2ecc71;
-    --card-bg: rgba(255,255,255,0.04);
-    --border: rgba(201,168,76,0.25);
+    --text-dim: #b09070;
+    --card-bg: rgba(255,255,255,0.06);
+    --border: rgba(201,168,76,0.28);
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
   body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Noto Serif TC', serif;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-weight: 300;
     min-height: 100vh;
     overflow-x: hidden;
+    color: var(--text);
+    background:
+      radial-gradient(ellipse at 50% 0%, rgba(220,130,20,0.22) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 90%, rgba(160,80,0,0.18) 0%, transparent 50%),
+      radial-gradient(ellipse at 20% 60%, rgba(180,90,10,0.12) 0%, transparent 45%),
+      linear-gradient(160deg, #1e1000 0%, #2e1800 30%, #3d2200 55%, #2e1800 80%, #1e1000 100%);
+    background-attachment: fixed;
   }
 
-  /* starfield */
+  /* warm texture overlay */
   body::before {
     content: '';
     position: fixed; inset: 0;
     background-image:
-      radial-gradient(1px 1px at 10% 20%, rgba(255,255,200,0.6) 0%, transparent 100%),
-      radial-gradient(1px 1px at 30% 60%, rgba(255,255,200,0.4) 0%, transparent 100%),
-      radial-gradient(1.5px 1.5px at 55% 15%, rgba(255,255,200,0.7) 0%, transparent 100%),
-      radial-gradient(1px 1px at 75% 45%, rgba(255,255,200,0.5) 0%, transparent 100%),
-      radial-gradient(1px 1px at 85% 80%, rgba(255,255,200,0.4) 0%, transparent 100%),
-      radial-gradient(1px 1px at 20% 85%, rgba(255,255,200,0.3) 0%, transparent 100%),
-      radial-gradient(1px 1px at 65% 70%, rgba(255,255,200,0.5) 0%, transparent 100%),
-      radial-gradient(1px 1px at 92% 30%, rgba(255,255,200,0.4) 0%, transparent 100%),
-      radial-gradient(1px 1px at 45% 90%, rgba(255,255,200,0.3) 0%, transparent 100%);
-    pointer-events: none;
-    z-index: 0;
+      radial-gradient(1px 1px at 12% 18%, rgba(255,220,120,0.5) 0%, transparent 100%),
+      radial-gradient(1px 1px at 35% 55%, rgba(255,200,80,0.3) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 58% 12%, rgba(255,230,100,0.55) 0%, transparent 100%),
+      radial-gradient(1px 1px at 78% 42%, rgba(255,210,90,0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 88% 78%, rgba(255,200,80,0.35) 0%, transparent 100%),
+      radial-gradient(1px 1px at 22% 82%, rgba(255,220,100,0.25) 0%, transparent 100%),
+      radial-gradient(1px 1px at 67% 68%, rgba(255,210,90,0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 93% 28%, rgba(255,220,110,0.35) 0%, transparent 100%),
+      radial-gradient(1px 1px at 48% 92%, rgba(255,200,80,0.25) 0%, transparent 100%);
+    pointer-events: none; z-index: 0;
   }
 
-  .wrap { position: relative; z-index: 1; max-width: 480px; margin: 0 auto; padding: 0 0 80px; }
+  .wrap { position: relative; z-index: 1; max-width: 480px; margin: 0 auto; padding: 0 0 48px; }
 
-  /* ── HEADER ── */
-  header {
-    text-align: center;
-    padding: 32px 20px 20px;
-    position: relative;
-  }
+  /* HEADER */
+  header { text-align: center; padding: 40px 20px 24px; }
   .logo-symbol {
-    font-family: 'Ma Shan Zheng', cursive;
-    font-size: 52px;
-    color: var(--gold);
-    display: block;
-    line-height: 1;
-    text-shadow: 0 0 30px rgba(201,168,76,0.6), 0 0 60px rgba(201,168,76,0.2);
+    font-size: 52px; color: var(--gold); display: block; line-height: 1;
+    text-shadow: 0 0 20px rgba(201,168,76,0.5), 0 0 50px rgba(201,168,76,0.15);
     animation: pulse-glow 3s ease-in-out infinite;
   }
   @keyframes pulse-glow {
-    0%,100% { text-shadow: 0 0 30px rgba(201,168,76,0.6), 0 0 60px rgba(201,168,76,0.2); }
-    50% { text-shadow: 0 0 40px rgba(201,168,76,0.9), 0 0 80px rgba(201,168,76,0.4); }
+    0%,100% { text-shadow: 0 0 20px rgba(201,168,76,0.5), 0 0 50px rgba(201,168,76,0.15); }
+    50% { text-shadow: 0 0 32px rgba(201,168,76,0.85), 0 0 70px rgba(201,168,76,0.3); }
   }
   .logo-title {
-    font-family: 'Ma Shan Zheng', cursive;
-    font-size: 28px;
-    color: var(--gold-light);
-    letter-spacing: 8px;
-    margin-top: 4px;
+    font-size: 32px; font-weight: 300; color: var(--gold-light);
+    letter-spacing: 12px; margin-top: 8px;
   }
   .logo-sub {
-    font-size: 11px;
-    color: var(--text-dim);
-    letter-spacing: 3px;
-    margin-top: 6px;
+    font-size: 11px; font-weight: 300; color: var(--text-dim);
+    letter-spacing: 4px; margin-top: 8px;
   }
-  .divider {
-    display: flex; align-items: center; gap: 10px;
-    margin: 16px 20px 0;
-    color: var(--border);
-  }
+  .divider { display: flex; align-items: center; gap: 10px; margin: 20px 20px 0; }
   .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-  .divider span { font-size: 14px; color: var(--gold); }
+  .divider span { font-size: 13px; color: var(--gold); }
 
-  /* ── POINTS BAR ── */
-  .points-bar {
-    margin: 16px 16px 0;
+  /* SCREENS */
+  .screen { display: none; }
+  .screen.active { display: block; animation: fadeUp 0.4s ease; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* SCREEN 1 */
+  .question-prompt { text-align: center; padding: 28px 24px 20px; }
+  .question-prompt h2 {
+    font-size: 20px; font-weight: 400; color: var(--gold-light);
+    letter-spacing: 2px; line-height: 1.7;
+  }
+  .question-prompt p { font-size: 13px; font-weight: 300; color: var(--text-dim); margin-top: 8px; letter-spacing: 1px; }
+
+  .question-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 0 16px; }
+  .q-card {
     background: var(--card-bg);
     border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 12px 16px;
-    display: flex; align-items: center; justify-content: space-between;
+    border-radius: 16px; padding: 22px 14px 18px;
+    cursor: pointer; transition: all 0.2s; text-align: center;
+    position: relative; overflow: hidden;
   }
-  .points-label { font-size: 12px; color: var(--text-dim); }
-  .points-value { font-size: 20px; color: var(--gold); font-weight: 700; }
-  .points-value span { font-size: 12px; color: var(--text-dim); margin-left: 2px; }
-  .topup-btn {
-    background: linear-gradient(135deg, var(--gold), #a07828);
-    color: #1a0a2e;
-    border: none;
-    border-radius: 8px;
-    padding: 6px 14px;
-    font-size: 13px;
-    font-family: 'Noto Serif TC', serif;
-    font-weight: 700;
-    cursor: pointer;
+  .q-card:active, .q-card.selected {
+    transform: scale(0.97);
+    border-color: var(--gold);
+    background: rgba(201,168,76,0.1);
   }
-
-  /* ── SECTION TITLE ── */
-  .sec-title {
-    font-family: 'Ma Shan Zheng', cursive;
-    font-size: 16px;
-    color: var(--gold);
-    letter-spacing: 4px;
-    padding: 20px 20px 10px;
-  }
-
-  /* ── SERVICE GRID ── */
-  .service-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    padding: 0 16px;
-  }
-  .service-card {
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 18px 14px;
-    cursor: pointer;
-    transition: all 0.2s;
-    position: relative;
-    overflow: hidden;
-    text-align: center;
-  }
-  .service-card::before {
-    content: '';
-    position: absolute; top: 0; left: 0; right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, var(--gold), transparent);
-    opacity: 0;
-    transition: opacity 0.2s;
-  }
-  .service-card:active { transform: scale(0.97); background: rgba(201,168,76,0.08); }
-  .service-card:active::before { opacity: 1; }
-  .service-card.featured {
-    grid-column: 1 / -1;
-    display: flex; align-items: center; gap: 14px;
-    text-align: left;
-  }
-  .card-icon { font-size: 32px; display: block; margin-bottom: 8px; }
-  .service-card.featured .card-icon { font-size: 40px; margin-bottom: 0; }
-  .card-name { font-size: 15px; color: var(--gold-light); font-weight: 700; }
-  .card-desc { font-size: 11px; color: var(--text-dim); margin-top: 4px; line-height: 1.5; }
-  .card-cost {
-    margin-top: 10px;
-    font-size: 12px;
-    color: var(--gold);
-    background: rgba(201,168,76,0.12);
-    border-radius: 20px;
-    padding: 3px 10px;
-    display: inline-block;
-  }
-  .service-card.featured .card-cost { margin-top: 6px; }
-  .badge-hot {
+  .q-icon { font-size: 34px; display: block; margin-bottom: 10px; }
+  .q-title { font-size: 14px; font-weight: 500; color: var(--gold-light); letter-spacing: 1px; }
+  .q-sub { font-size: 11px; font-weight: 300; color: var(--text-dim); margin-top: 5px; line-height: 1.6; }
+  .q-check {
     position: absolute; top: 10px; right: 10px;
-    background: var(--red);
-    color: #fff;
-    font-size: 10px;
-    padding: 2px 7px;
-    border-radius: 10px;
-    letter-spacing: 1px;
+    width: 20px; height: 20px; border-radius: 50%;
+    background: var(--gold); color: #1e1000;
+    font-size: 11px; font-weight: 700;
+    display: none; align-items: center; justify-content: center;
   }
+  .q-card.selected .q-check { display: flex; }
 
-  /* ── TODAY BANNER ── */
-  .today-banner {
-    margin: 16px 16px 0;
-    background: linear-gradient(135deg, rgba(192,57,43,0.2), rgba(201,168,76,0.1));
-    border: 1px solid rgba(192,57,43,0.4);
-    border-radius: 14px;
-    padding: 16px;
-    display: flex; align-items: center; gap: 14px;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-  .today-banner:active { transform: scale(0.98); }
-  .today-icon { font-size: 36px; flex-shrink: 0; }
-  .today-title { font-size: 15px; color: var(--gold-light); font-weight: 700; }
-  .today-sub { font-size: 12px; color: var(--text-dim); margin-top: 3px; }
-  .today-free {
-    margin-left: auto; flex-shrink: 0;
-    background: var(--red);
-    color: #fff;
-    font-size: 11px;
-    font-weight: 700;
-    padding: 4px 10px;
-    border-radius: 20px;
-    letter-spacing: 1px;
-  }
-
-  /* ── INPUT SECTION ── */
-  .input-section {
-    margin: 0 16px;
-    background: var(--card-bg);
+  .next-btn {
+    margin: 20px 16px 0; width: calc(100% - 32px);
+    background: rgba(201,168,76,0.07);
     border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 20px;
+    border-radius: 12px; padding: 14px;
+    color: var(--text-dim); font-size: 14px; font-weight: 300;
+    font-family: 'Noto Sans TC', sans-serif; letter-spacing: 4px;
+    cursor: pointer; transition: all 0.3s;
   }
-  .input-label { font-size: 13px; color: var(--text-dim); margin-bottom: 8px; display: block; }
-  .input-row { display: flex; gap: 8px; margin-bottom: 12px; }
+  .next-btn.ready {
+    background: linear-gradient(135deg, #7a1515, #b83030);
+    border-color: rgba(192,57,43,0.5); color: var(--gold-light);
+    box-shadow: 0 4px 20px rgba(192,57,43,0.3);
+  }
+
+  /* SCREEN 2 */
+  .form-wrap { padding: 24px 16px 0; }
+  .form-title { font-size: 18px; font-weight: 400; color: var(--gold-light); letter-spacing: 3px; text-align: center; margin-bottom: 6px; }
+  .form-sub { font-size: 12px; font-weight: 300; color: var(--text-dim); text-align: center; margin-bottom: 20px; letter-spacing: 1px; }
+
+  .selected-q-badge {
+    display: flex; align-items: center; gap: 10px;
+    background: rgba(201,168,76,0.08); border: 1px solid rgba(201,168,76,0.28);
+    border-radius: 10px; padding: 10px 14px; margin-bottom: 20px;
+  }
+  .badge-icon { font-size: 20px; }
+  .badge-text { font-size: 13px; font-weight: 400; color: var(--gold); }
+
+  .input-label { font-size: 12px; font-weight: 300; color: var(--text-dim); margin-bottom: 7px; display: block; letter-spacing: 1px; }
+  .input-group { margin-bottom: 14px; }
+  .input-row { display: flex; gap: 8px; }
   .inp {
-    flex: 1;
-    background: rgba(255,255,255,0.05);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 10px 14px;
-    color: var(--text);
-    font-size: 14px;
-    font-family: 'Noto Serif TC', serif;
-    outline: none;
-    transition: border-color 0.2s;
-    width: 100%;
+    flex: 1; width: 100%;
+    background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+    border-radius: 10px; padding: 11px 14px;
+    color: var(--text); font-size: 14px; font-weight: 300;
+    font-family: 'Noto Sans TC', sans-serif; outline: none; transition: border-color 0.2s;
   }
   .inp:focus { border-color: var(--gold); }
   .inp::placeholder { color: var(--text-dim); }
-  select.inp { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23c9a84c' stroke-width='1.5' fill='none'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 30px; }
-  select.inp option { background: #1a0a2e; }
-
-  .question-area {
-    background: rgba(255,255,255,0.05);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 12px 14px;
-    color: var(--text);
-    font-size: 14px;
-    font-family: 'Noto Serif TC', serif;
-    outline: none;
-    width: 100%;
-    min-height: 80px;
-    resize: none;
-    transition: border-color 0.2s;
-    margin-bottom: 14px;
+  select.inp {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23c9a84c' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 12px center; padding-right: 30px;
   }
-  .question-area:focus { border-color: var(--gold); }
-  .question-area::placeholder { color: var(--text-dim); }
+  select.inp option { background: #2e1800; }
 
   .submit-btn {
-    width: 100%;
-    background: linear-gradient(135deg, #8b1a1a, #c0392b, #8b1a1a);
-    border: 1px solid rgba(192,57,43,0.6);
-    border-radius: 12px;
-    padding: 14px;
-    color: var(--gold-light);
-    font-size: 16px;
-    font-family: 'Ma Shan Zheng', cursive;
-    letter-spacing: 4px;
-    cursor: pointer;
-    transition: all 0.2s;
-    box-shadow: 0 4px 20px rgba(192,57,43,0.3);
+    width: 100%; margin-top: 6px;
+    background: linear-gradient(135deg, #7a1515, #b83030, #7a1515);
+    border: 1px solid rgba(192,57,43,0.5); border-radius: 12px; padding: 15px;
+    color: var(--gold-light); font-size: 15px; font-weight: 300;
+    font-family: 'Noto Sans TC', sans-serif; letter-spacing: 5px;
+    cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 20px rgba(192,57,43,0.28);
   }
-  .submit-btn:active { transform: scale(0.98); box-shadow: 0 2px 10px rgba(192,57,43,0.2); }
+  .submit-btn:active { transform: scale(0.98); }
 
-  /* ── RESULT CARD ── */
+  /* SCREEN 3 */
+  .loading-wrap { text-align: center; padding: 80px 30px; }
+  .loading-symbol {
+    font-size: 60px; display: block; margin-bottom: 24px;
+    animation: spin-slow 4s linear infinite;
+  }
+  @keyframes spin-slow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  .loading-text {
+    font-size: 16px; font-weight: 300; color: var(--gold); letter-spacing: 5px;
+  }
+  .loading-text::after { content: ''; animation: dots 1.5s steps(4, end) infinite; }
+  @keyframes dots { 0%{content:''} 25%{content:'．'} 50%{content:'．．'} 75%{content:'．．．'} }
+  .loading-sub { font-size: 12px; font-weight: 300; color: var(--text-dim); margin-top: 10px; letter-spacing: 2px; }
+
+  /* SCREEN 4 */
+  .result-wrap { padding: 24px 16px 0; }
+  .result-header { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+  .result-avatar {
+    width: 44px; height: 44px; flex-shrink: 0;
+    background: linear-gradient(135deg, var(--gold), #8b6914);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px;
+  }
+  .result-name { font-size: 14px; font-weight: 400; color: var(--gold); }
+  .result-q { font-size: 12px; font-weight: 300; color: var(--text-dim); margin-top: 3px; }
+
   .result-card {
-    margin: 16px 16px 0;
-    background: linear-gradient(135deg, rgba(201,168,76,0.06), rgba(255,255,255,0.02));
-    border: 1px solid rgba(201,168,76,0.35);
-    border-radius: 16px;
-    padding: 20px;
-    display: none;
-    animation: fadeIn 0.5s ease;
+    background: var(--card-bg); border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 16px; padding: 20px; margin-bottom: 14px;
   }
-  .result-card.show { display: block; }
-  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-  .result-header { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
-  .result-avatar { width: 40px; height: 40px; background: linear-gradient(135deg, var(--gold), #8b6914); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
-  .result-name { font-size: 13px; color: var(--gold); }
-  .result-time { font-size: 11px; color: var(--text-dim); margin-top: 2px; }
-  .result-body { font-size: 14px; color: var(--text); line-height: 1.9; letter-spacing: 0.5px; }
-  .result-body strong { color: var(--gold-light); }
-  .result-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
-  .tag { font-size: 11px; padding: 4px 10px; border-radius: 20px; border: 1px solid var(--border); color: var(--text-dim); }
+  .result-body { font-size: 14px; font-weight: 300; color: var(--text); line-height: 2.1; letter-spacing: 0.5px; }
+  .result-body strong { font-weight: 500; color: var(--gold-light); }
 
-  /* ── BOTTOM NAV ── */
-  .bottom-nav {
-    position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
-    width: 100%; max-width: 480px;
-    background: rgba(13,6,24,0.95);
-    backdrop-filter: blur(10px);
-    border-top: 1px solid var(--border);
-    display: flex;
-    z-index: 100;
-    padding-bottom: env(safe-area-inset-bottom);
+  .action-row { display: flex; gap: 10px; margin-top: 4px; }
+  .action-btn {
+    flex: 1; background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: 10px; padding: 10px 8px; color: var(--text-dim);
+    font-size: 12px; font-weight: 300; font-family: 'Noto Sans TC', sans-serif;
+    cursor: pointer; text-align: center; transition: all 0.2s;
   }
-  .nav-item {
-    flex: 1; display: flex; flex-direction: column; align-items: center;
-    padding: 10px 0 8px;
-    cursor: pointer;
-    transition: color 0.2s;
-    color: var(--text-dim);
-    font-size: 10px;
-    gap: 3px;
-  }
-  .nav-item.active { color: var(--gold); }
-  .nav-icon { font-size: 22px; }
+  .action-btn:active { border-color: var(--gold); color: var(--gold); }
 
-  /* ── LOADING ── */
-  .loading-dots {
-    display: none; text-align: center; padding: 20px;
-    color: var(--text-dim); font-size: 13px;
+  .restart-btn {
+    width: 100%; margin-top: 14px; background: transparent;
+    border: 1px solid var(--border); border-radius: 12px; padding: 13px;
+    color: var(--text-dim); font-size: 13px; font-weight: 300;
+    font-family: 'Noto Sans TC', sans-serif; letter-spacing: 4px;
+    cursor: pointer; transition: all 0.2s;
   }
-  .loading-dots.show { display: block; }
-  .loading-dots::after {
-    content: '卜卦中';
-    animation: dots 1.5s steps(4, end) infinite;
-  }
-  @keyframes dots {
-    0%   { content: '卜卦中'; }
-    25%  { content: '卜卦中．'; }
-    50%  { content: '卜卦中．．'; }
-    75%  { content: '卜卦中．．．'; }
-  }
+  .restart-btn:active { border-color: var(--gold); color: var(--gold); }
 </style>
 </head>
 <body>
-
 <div class="wrap">
-  <!-- HEADER -->
+
   <header>
     <span class="logo-symbol">☯</span>
     <div class="logo-title">玄 機 閣</div>
@@ -343,209 +232,185 @@
     <div class="divider"><span>✦</span></div>
   </header>
 
-  <!-- POINTS BAR -->
-  <div class="points-bar">
-    <div>
-      <div class="points-label">我的靈石</div>
-      <div class="points-value">120 <span>顆</span></div>
+  <!-- SCREEN 1 -->
+  <div class="screen active" id="screen-1">
+    <div class="question-prompt">
+      <h2>你對哪件事感到好奇？</h2>
+      <p>選擇一個你最想知道的方向</p>
     </div>
-    <button class="topup-btn" onclick="showTopup()">＋ 儲值</button>
-  </div>
-
-  <!-- TODAY BANNER -->
-  <div class="today-banner" onclick="showToday()">
-    <div class="today-icon">🌙</div>
-    <div>
-      <div class="today-title">今日運勢</div>
-      <div class="today-sub">3月25日・癸卯日・每日免費</div>
-    </div>
-    <div class="today-free">免費</div>
-  </div>
-
-  <!-- SERVICES -->
-  <div class="sec-title">選 擇 占 卜 項 目</div>
-
-  <div class="service-grid">
-    <div class="service-card featured" onclick="selectService('bazi')">
-      <div class="card-icon">🏮</div>
-      <div>
-        <div class="card-name">八字命盤解析</div>
-        <div class="card-desc">以生辰八字推算命格、流年運勢，全方位命理分析</div>
-        <div class="card-cost">✦ 30 靈石</div>
+    <div class="question-grid">
+      <div class="q-card" onclick="selectQ(this,'wealth','💰','2026年的財運')">
+        <div class="q-check">✓</div>
+        <span class="q-icon">💰</span>
+        <div class="q-title">2026年的財運</div>
+        <div class="q-sub">錢財・投資・機遇</div>
       </div>
-      <div class="badge-hot">熱門</div>
-    </div>
-
-    <div class="service-card" onclick="selectService('love')">
-      <div class="card-icon">💕</div>
-      <div class="card-name">感情合盤</div>
-      <div class="card-desc">兩人八字相合度分析</div>
-      <div class="card-cost">✦ 25 靈石</div>
-    </div>
-
-    <div class="service-card" onclick="selectService('tarot')">
-      <div class="card-icon">🃏</div>
-      <div class="card-name">塔羅牌陣</div>
-      <div class="card-desc">一問一答・指引方向</div>
-      <div class="card-cost">✦ 15 靈石</div>
-    </div>
-
-    <div class="service-card" onclick="selectService('career')">
-      <div class="card-icon">⚡</div>
-      <div class="card-name">事業財運</div>
-      <div class="card-desc">工作方向・財富時機</div>
-      <div class="card-cost">✦ 20 靈石</div>
-    </div>
-
-    <div class="service-card" onclick="selectService('ziwei')">
-      <div class="card-icon">⭐</div>
-      <div class="card-name">紫微斗數</div>
-      <div class="card-desc">命宮排盤・大限流年</div>
-      <div class="card-cost">✦ 35 靈石</div>
-    </div>
-  </div>
-
-  <!-- INPUT FORM -->
-  <div class="sec-title" id="input-title" style="display:none">填 入 基 本 資 料</div>
-  <div class="input-section" id="input-section" style="display:none">
-    <label class="input-label">姓名（可匿名）</label>
-    <div class="input-row">
-      <input class="inp" type="text" id="name-inp" placeholder="例：小明" />
-    </div>
-
-    <label class="input-label">出生年月日</label>
-    <div class="input-row">
-      <input class="inp" type="date" id="birth-inp" />
-    </div>
-
-    <label class="input-label">出生時辰</label>
-    <div class="input-row">
-      <select class="inp" id="hour-inp">
-        <option value="">不確定</option>
-        <option>子時 (23-01時)</option>
-        <option>丑時 (01-03時)</option>
-        <option>寅時 (03-05時)</option>
-        <option>卯時 (05-07時)</option>
-        <option>辰時 (07-09時)</option>
-        <option>巳時 (09-11時)</option>
-        <option>午時 (11-13時)</option>
-        <option>未時 (13-15時)</option>
-        <option>申時 (15-17時)</option>
-        <option>酉時 (17-19時)</option>
-        <option>戌時 (19-21時)</option>
-        <option>亥時 (21-23時)</option>
-      </select>
-      <select class="inp" id="gender-inp">
-        <option>男</option>
-        <option>女</option>
-      </select>
-    </div>
-
-    <label class="input-label">你想問什麼？（可不填）</label>
-    <textarea class="question-area" id="question-inp" placeholder="例：今年感情運如何？工作上是否適合轉換跑道？"></textarea>
-
-    <button class="submit-btn" onclick="doFortune()">✦ 開 始 占 卜 ✦</button>
-  </div>
-
-  <!-- LOADING -->
-  <div class="loading-dots" id="loading"></div>
-
-  <!-- RESULT -->
-  <div class="result-card" id="result-card">
-    <div class="result-header">
-      <div class="result-avatar">☯</div>
-      <div>
-        <div class="result-name">玄機閣命理師</div>
-        <div class="result-time" id="result-time"></div>
+      <div class="q-card" onclick="selectQ(this,'love','🌸','2026年的異性緣')">
+        <div class="q-check">✓</div>
+        <span class="q-icon">🌸</span>
+        <div class="q-title">2026年的異性緣</div>
+        <div class="q-sub">感情・桃花・緣分</div>
+      </div>
+      <div class="q-card" onclick="selectQ(this,'health','🌿','2026年的健康運')">
+        <div class="q-check">✓</div>
+        <span class="q-icon">🌿</span>
+        <div class="q-title">2026年的健康運</div>
+        <div class="q-sub">身體・精神・活力</div>
+      </div>
+      <div class="q-card" onclick="selectQ(this,'overall','⭐','2026年的總運勢')">
+        <div class="q-check">✓</div>
+        <span class="q-icon">⭐</span>
+        <div class="q-title">2026年的總運勢</div>
+        <div class="q-sub">全方位・綜合解析</div>
       </div>
     </div>
-    <div class="result-body" id="result-body"></div>
-    <div class="result-tags">
-      <span class="tag">📋 儲存結果</span>
-      <span class="tag">🔗 分享好友</span>
-      <span class="tag">💬 追問</span>
+    <button class="next-btn" id="next-btn" onclick="goToStep2()">選 擇 後 繼 續</button>
+  </div>
+
+  <!-- SCREEN 2 -->
+  <div class="screen" id="screen-2">
+    <div class="form-wrap">
+      <div class="form-title">告訴我你的生辰</div>
+      <div class="form-sub">命理推算需要你的基本資料</div>
+      <div class="selected-q-badge">
+        <span class="badge-icon" id="badge-icon">⭐</span>
+        <span class="badge-text" id="badge-text">2026年的總運勢</span>
+      </div>
+      <div class="input-group">
+        <label class="input-label">姓名（可用暱稱）</label>
+        <input class="inp" type="text" id="name-inp" placeholder="例：小明" />
+      </div>
+      <div class="input-group">
+        <label class="input-label">出生年月日</label>
+        <input class="inp" type="date" id="birth-inp" />
+      </div>
+      <div class="input-group">
+        <label class="input-label">出生時辰與性別</label>
+        <div class="input-row">
+          <select class="inp" id="hour-inp">
+            <option value="">不確定時辰</option>
+            <option>子時 (23-01時)</option>
+            <option>丑時 (01-03時)</option>
+            <option>寅時 (03-05時)</option>
+            <option>卯時 (05-07時)</option>
+            <option>辰時 (07-09時)</option>
+            <option>巳時 (09-11時)</option>
+            <option>午時 (11-13時)</option>
+            <option>未時 (13-15時)</option>
+            <option>申時 (15-17時)</option>
+            <option>酉時 (17-19時)</option>
+            <option>戌時 (19-21時)</option>
+            <option>亥時 (21-23時)</option>
+          </select>
+          <select class="inp" id="gender-inp" style="max-width:90px">
+            <option>男</option>
+            <option>女</option>
+          </select>
+        </div>
+      </div>
+      <button class="submit-btn" onclick="doFortune()">✦ 開 始 占 卜 ✦</button>
+    </div>
+  </div>
+
+  <!-- SCREEN 3 -->
+  <div class="screen" id="screen-3">
+    <div class="loading-wrap">
+      <span class="loading-symbol">☯</span>
+      <div class="loading-text">天機推算中</div>
+      <div class="loading-sub">正在為你解讀命盤</div>
+    </div>
+  </div>
+
+  <!-- SCREEN 4 -->
+  <div class="screen" id="screen-4">
+    <div class="result-wrap">
+      <div class="result-header">
+        <div class="result-avatar">☯</div>
+        <div>
+          <div class="result-name">玄機閣命理師</div>
+          <div class="result-q" id="result-q-label"></div>
+        </div>
+      </div>
+      <div class="result-card">
+        <div class="result-body" id="result-body"></div>
+      </div>
+      <div class="action-row">
+        <button class="action-btn">📋 儲存結果</button>
+        <button class="action-btn">🔗 分享好友</button>
+        <button class="action-btn">💬 追問</button>
+      </div>
+      <button class="restart-btn" onclick="restart()">✦ 再問一個問題 ✦</button>
     </div>
   </div>
 
 </div>
-
-<!-- BOTTOM NAV -->
-<nav class="bottom-nav">
-  <div class="nav-item active">
-    <div class="nav-icon">🔮</div>
-    <div>占卜</div>
-  </div>
-  <div class="nav-item">
-    <div class="nav-icon">📜</div>
-    <div>紀錄</div>
-  </div>
-  <div class="nav-item">
-    <div class="nav-icon">💎</div>
-    <div>儲值</div>
-  </div>
-  <div class="nav-item">
-    <div class="nav-icon">👤</div>
-    <div>我的</div>
-  </div>
-</nav>
-
 <script>
-  let currentService = null;
+  let selectedQ = null, selectedIcon = '', selectedLabel = '';
 
-  function selectService(s) {
-    currentService = s;
-    document.getElementById('input-title').style.display = 'block';
-    document.getElementById('input-section').style.display = 'block';
-    document.getElementById('input-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
-    document.getElementById('result-card').classList.remove('show');
+  function selectQ(el, type, icon, label) {
+    document.querySelectorAll('.q-card').forEach(c => c.classList.remove('selected'));
+    el.classList.add('selected');
+    selectedQ = type; selectedIcon = icon; selectedLabel = label;
+    const btn = document.getElementById('next-btn');
+    btn.classList.add('ready');
+    btn.textContent = '繼 續 ✦';
   }
 
-  function showToday() {
-    document.getElementById('result-time').textContent = '3月25日 免費運勢';
-    document.getElementById('result-body').innerHTML = `
-      <strong>今日卦象：水雷屯 ䷂</strong><br><br>
-      今日天干癸水剋火，宜靜不宜動。凡事三思而後行，切勿倉促決策。<br><br>
-      <strong>💼 事業：</strong>文書作業順利，但避免與上司正面衝突，忍一時海闊天空。<br><br>
-      <strong>❤️ 感情：</strong>單身者今日桃花略旺，但需注意言辭，避免誤解。有伴者相處融洽，適合傾心長談。<br><br>
-      <strong>💰 財運：</strong>偏財運普通，切勿輕信投資訊息。正財穩定，收支平衡即吉。<br><br>
-      <strong>🍀 開運色：</strong>深藍、灰色　　<strong>吉時：</strong>午時（11-13時）
-    `;
-    document.getElementById('result-card').classList.add('show');
-    document.getElementById('result-card').scrollIntoView({ behavior: 'smooth' });
+  function setStep(n) {
+    for (let i = 1; i <= 4; i++) {
+      document.getElementById('screen-' + i).classList.remove('active');
+    }
+    document.getElementById('screen-' + n).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  function showTopup() {
-    alert('儲值方案\n\n🔹 50 靈石 — NT$99\n🔸 120 靈石 — NT$199\n💎 300 靈石 — NT$399（最划算）\n\n（功能開發中，即將上線）');
+  function goToStep2() {
+    if (!selectedQ) return;
+    document.getElementById('badge-icon').textContent = selectedIcon;
+    document.getElementById('badge-text').textContent = selectedLabel;
+    setStep(2);
   }
 
   function doFortune() {
+    setStep(3);
     const name = document.getElementById('name-inp').value || '命主';
-    document.getElementById('loading').classList.add('show');
-    document.getElementById('result-card').classList.remove('show');
     setTimeout(() => {
-      document.getElementById('loading').classList.remove('show');
-      const serviceNames = { bazi:'八字命盤', love:'感情合盤', tarot:'塔羅牌陣', career:'事業財運', ziwei:'紫微斗數' };
-      document.getElementById('result-time').textContent = serviceNames[currentService||'bazi'] + ' · 剛剛';
-      document.getElementById('result-body').innerHTML = `
-        <strong>${name} 命主，以下為您的${serviceNames[currentService||'bazi']}解析：</strong><br><br>
-        根據您提供的生辰資料，命主五行木旺，火弱。格局偏印格，主聰慧好學，思維敏銳，適合從事需要創意與分析的行業。<br><br>
-        <strong>🌟 今年流年：</strong>甲辰年，木土相戰，宜守不宜攻。事業上有貴人扶持，但需提防小人暗中作梗，凡事留有餘地。<br><br>
-        <strong>📈 下半年運勢：</strong>財運逐步回升，七月後見明顯改善。感情方面易有新緣分，已婚者夫妻感情更進一步。<br><br>
-        <strong>⚠️ 注意：</strong>健康方面需關注腸胃及睡眠品質，避免過度勞累。
-      `;
-      document.getElementById('result-card').classList.add('show');
-      document.getElementById('result-card').scrollIntoView({ behavior: 'smooth' });
-    }, 2500);
+      const results = {
+        wealth: `<strong>${name} 命主，關於您 2026 年的財運：</strong><br><br>
+          丙午年財星入命，偏財運旺盛，上半年尤為突出。三月至五月間有意外之財的機緣，適合把握。<br><br>
+          <strong>💼 正財：</strong>工作收入穩定增長，下半年有升遷或加薪的機會，務必把握九月的關鍵時機。<br><br>
+          <strong>📈 偏財：</strong>投資方面宜保守為主，切勿輕信偏門訊息。房地產與傳統行業優於高風險投資。<br><br>
+          <strong>⚠️ 注意：</strong>七月為財運低谷期，避免大額支出或借貸，以守為攻方為上策。`,
+        love: `<strong>${name} 命主，關於您 2026 年的異性緣：</strong><br><br>
+          桃花星在今年入座命宮，整體桃花運較往年明顯提升，尤其上半年緣分頻繁。<br><br>
+          <strong>💕 單身者：</strong>四月與八月為桃花旺盛之月，容易在朋友聚會或工作場合中邂逅有緣之人，宜主動出擊。<br><br>
+          <strong>👫 有伴者：</strong>感情趨於穩定深化，年中有機會進入更重要的承諾階段。溝通是今年關鍵，避免冷戰。<br><br>
+          <strong>⚠️ 注意：</strong>十月有爛桃花干擾，辨別真心十分重要，不宜因寂寞倉促做決定。`,
+        health: `<strong>${name} 命主，關於您 2026 年的健康運：</strong><br><br>
+          整體健康運平穩，但需注意季節交替時的免疫力下降，尤其春秋兩季。<br><br>
+          <strong>🧠 精神：</strong>上半年工作壓力較大，容易出現失眠與焦慮，建議固定冥想或運動習慣以舒緩。<br><br>
+          <strong>🏃 身體：</strong>腸胃與呼吸系統需多加關注，飲食宜清淡規律，避免暴飲暴食。<br><br>
+          <strong>✨ 開運建議：</strong>多接觸大自然，適度戶外活動有助提升整年運勢。夏至前後做一次全身健康檢查為宜。`,
+        overall: `<strong>${name} 命主，關於您 2026 年的總運勢：</strong><br><br>
+          丙午年對您而言是蓄勢待發之年，前半年穩中求進，後半年迎來明顯轉機。<br><br>
+          <strong>🌟 整體：</strong>貴人運強旺，職場上有重要貴人相助，把握每一次合作機會，不宜獨自悶頭苦幹。<br><br>
+          <strong>💫 轉機：</strong>八月是全年最重要的轉捩點，此時做出的決定將影響未來兩至三年的走向，宜謹慎而果決。<br><br>
+          <strong>⚠️ 提醒：</strong>今年需注意人際關係的維護，小人暗箭防不勝防，低調行事勝過高調張揚。`
+      };
+      document.getElementById('result-q-label').textContent = selectedLabel;
+      document.getElementById('result-body').innerHTML = results[selectedQ] || results.overall;
+      setStep(4);
+    }, 2800);
   }
 
-  // nav switching
-  document.querySelectorAll('.nav-item').forEach((item, i) => {
-    item.addEventListener('click', () => {
-      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-      item.classList.add('active');
-      if (i === 2) showTopup();
-    });
-  });
+  function restart() {
+    selectedQ = null; selectedIcon = ''; selectedLabel = '';
+    document.querySelectorAll('.q-card').forEach(c => c.classList.remove('selected'));
+    const btn = document.getElementById('next-btn');
+    btn.classList.remove('ready');
+    btn.textContent = '選 擇 後 繼 續';
+    setStep(1);
+  }
 </script>
 </body>
 </html>
