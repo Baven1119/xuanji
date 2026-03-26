@@ -3,19 +3,27 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta name="theme-color" content="#2e1800">
-<title>玄機閣・AI算命</title>
+<meta name="theme-color" content="#f5ede0">
+<title>玄機閣・AI命理</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700&family=Noto+Serif+TC:wght@400;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --gold: #c9a84c;
-    --gold-light: #f0d080;
-    --red: #c0392b;
-    --text: #f5e6c8;
-    --text-dim: #b09070;
-    --card-bg: rgba(255,255,255,0.06);
-    --border: rgba(201,168,76,0.28);
+    --bg: #f7f0e6;
+    --bg2: #efe4d2;
+    --bg3: #e8d9c4;
+    --brown: #4a2e1a;
+    --brown-mid: #7a4f2e;
+    --brown-light: #a07048;
+    --gold: #b8860b;
+    --gold-light: #d4a017;
+    --cream: #fdf6ec;
+    --text: #2c1a0e;
+    --text-mid: #6b4226;
+    --text-dim: #a07858;
+    --border: rgba(120,70,30,0.15);
+    --card-bg: rgba(255,255,255,0.7);
+    --red: #8b2020;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -26,169 +34,247 @@
     min-height: 100vh;
     overflow-x: hidden;
     color: var(--text);
-    background:
-      radial-gradient(ellipse at 50% 0%, rgba(220,130,20,0.22) 0%, transparent 60%),
-      radial-gradient(ellipse at 80% 90%, rgba(160,80,0,0.18) 0%, transparent 50%),
-      radial-gradient(ellipse at 20% 60%, rgba(180,90,10,0.12) 0%, transparent 45%),
-      linear-gradient(160deg, #1e1000 0%, #2e1800 30%, #3d2200 55%, #2e1800 80%, #1e1000 100%);
+    background: linear-gradient(160deg, #f7f0e6 0%, #efe4d2 40%, #e8d9c4 70%, #efe4d2 100%);
     background-attachment: fixed;
   }
 
   body::before {
     content: '';
     position: fixed; inset: 0;
-    background-image:
-      radial-gradient(1px 1px at 12% 18%, rgba(255,220,120,0.5) 0%, transparent 100%),
-      radial-gradient(1px 1px at 35% 55%, rgba(255,200,80,0.3) 0%, transparent 100%),
-      radial-gradient(1.5px 1.5px at 58% 12%, rgba(255,230,100,0.55) 0%, transparent 100%),
-      radial-gradient(1px 1px at 78% 42%, rgba(255,210,90,0.4) 0%, transparent 100%),
-      radial-gradient(1px 1px at 88% 78%, rgba(255,200,80,0.35) 0%, transparent 100%),
-      radial-gradient(1px 1px at 22% 82%, rgba(255,220,100,0.25) 0%, transparent 100%),
-      radial-gradient(1px 1px at 67% 68%, rgba(255,210,90,0.4) 0%, transparent 100%),
-      radial-gradient(1px 1px at 93% 28%, rgba(255,220,110,0.35) 0%, transparent 100%),
-      radial-gradient(1px 1px at 48% 92%, rgba(255,200,80,0.25) 0%, transparent 100%);
+    background:
+      radial-gradient(ellipse at 20% 10%, rgba(200,150,80,0.12) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 80%, rgba(160,100,40,0.1) 0%, transparent 50%),
+      radial-gradient(ellipse at 60% 30%, rgba(220,170,100,0.08) 0%, transparent 40%);
     pointer-events: none; z-index: 0;
   }
 
   .wrap { position: relative; z-index: 1; max-width: 480px; margin: 0 auto; padding: 0 0 48px; }
 
-  header { text-align: center; padding: 40px 20px 24px; }
+  /* HEADER */
+  header { text-align: center; padding: 40px 20px 28px; }
   .logo-symbol {
-    font-size: 52px; color: var(--gold); display: block; line-height: 1;
-    text-shadow: 0 0 20px rgba(201,168,76,0.5), 0 0 50px rgba(201,168,76,0.15);
-    animation: pulse-glow 3s ease-in-out infinite;
+    font-size: 48px; color: var(--brown); display: block; line-height: 1;
+    opacity: 0.85;
   }
-  @keyframes pulse-glow {
-    0%,100% { text-shadow: 0 0 20px rgba(201,168,76,0.5), 0 0 50px rgba(201,168,76,0.15); }
-    50% { text-shadow: 0 0 32px rgba(201,168,76,0.85), 0 0 70px rgba(201,168,76,0.3); }
+  .logo-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 30px; font-weight: 700; color: var(--brown);
+    letter-spacing: 10px; margin-top: 10px;
   }
-  .logo-title { font-size: 32px; font-weight: 300; color: var(--gold-light); letter-spacing: 12px; margin-top: 8px; }
-  .logo-sub { font-size: 11px; font-weight: 300; color: var(--text-dim); letter-spacing: 4px; margin-top: 8px; }
+  .logo-sub { font-size: 11px; font-weight: 300; color: var(--text-dim); letter-spacing: 4px; margin-top: 6px; }
   .divider { display: flex; align-items: center; gap: 10px; margin: 20px 20px 0; }
   .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-  .divider span { font-size: 13px; color: var(--gold); }
+  .divider span { font-size: 12px; color: var(--brown-light); }
 
+  /* SCREENS */
   .screen { display: none; }
   .screen.active { display: block; animation: fadeUp 0.4s ease; }
   @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
 
   /* SCREEN 1 */
-  .question-prompt { text-align: center; padding: 28px 24px 20px; }
-  .question-prompt h2 { font-size: 20px; font-weight: 400; color: var(--gold-light); letter-spacing: 2px; line-height: 1.7; }
-  .question-prompt p { font-size: 13px; font-weight: 300; color: var(--text-dim); margin-top: 8px; letter-spacing: 1px; }
+  .hero-section {
+    margin: 24px 16px 0;
+    background: var(--brown);
+    border-radius: 20px;
+    padding: 32px 24px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-section::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(220,170,80,0.2) 0%, transparent 60%);
+  }
+  .hero-tag {
+    display: inline-block;
+    background: rgba(220,170,80,0.2);
+    border: 1px solid rgba(220,170,80,0.4);
+    color: var(--gold-light);
+    font-size: 11px; letter-spacing: 3px;
+    padding: 4px 14px; border-radius: 20px;
+    margin-bottom: 16px;
+  }
+  .hero-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 26px; font-weight: 700;
+    color: #f5e6c8; line-height: 1.5;
+    letter-spacing: 2px; margin-bottom: 14px;
+    position: relative;
+  }
+  .hero-features {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 8px; margin-top: 20px;
+  }
+  .hero-feature {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px; padding: 10px 12px;
+    text-align: left;
+  }
+  .hero-feature-icon { font-size: 16px; margin-bottom: 4px; display: block; }
+  .hero-feature-text { font-size: 12px; color: rgba(245,230,200,0.8); line-height: 1.5; font-weight: 300; }
 
-  .question-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 0 16px; }
+  .question-prompt { text-align: center; padding: 24px 24px 16px; }
+  .question-prompt h2 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 18px; font-weight: 700; color: var(--brown);
+    letter-spacing: 2px; line-height: 1.7;
+  }
+  .question-prompt p { font-size: 12px; font-weight: 300; color: var(--text-dim); margin-top: 6px; }
+
+  .question-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 0 16px; }
   .q-card {
-    background: var(--card-bg); border: 1px solid var(--border);
-    border-radius: 16px; padding: 22px 14px 18px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 14px; padding: 18px 12px 16px;
     cursor: pointer; transition: all 0.2s; text-align: center;
     position: relative; overflow: hidden;
+    backdrop-filter: blur(10px);
   }
-  .q-card:active, .q-card.selected { transform: scale(0.97); border-color: var(--gold); background: rgba(201,168,76,0.1); }
-  .q-icon { font-size: 34px; display: block; margin-bottom: 10px; }
-  .q-title { font-size: 14px; font-weight: 500; color: var(--gold-light); letter-spacing: 1px; }
-  .q-sub { font-size: 11px; font-weight: 300; color: var(--text-dim); margin-top: 5px; line-height: 1.6; }
+  .q-card:active, .q-card.selected {
+    transform: scale(0.97);
+    border-color: var(--brown-light);
+    background: rgba(160,112,72,0.12);
+  }
+  .q-card.selected { border-color: var(--brown); }
+  .q-icon { font-size: 30px; display: block; margin-bottom: 8px; }
+  .q-title { font-size: 13px; font-weight: 500; color: var(--brown); letter-spacing: 0.5px; line-height: 1.5; }
+  .q-sub { font-size: 10px; font-weight: 300; color: var(--text-dim); margin-top: 4px; line-height: 1.5; }
   .q-check {
-    position: absolute; top: 10px; right: 10px;
-    width: 20px; height: 20px; border-radius: 50%;
-    background: var(--gold); color: #1e1000;
-    font-size: 11px; font-weight: 700;
+    position: absolute; top: 8px; right: 8px;
+    width: 18px; height: 18px; border-radius: 50%;
+    background: var(--brown); color: #fff;
+    font-size: 10px; font-weight: 700;
     display: none; align-items: center; justify-content: center;
   }
   .q-card.selected .q-check { display: flex; }
 
   .next-btn {
-    margin: 20px 16px 0; width: calc(100% - 32px);
-    background: rgba(201,168,76,0.07); border: 1px solid var(--border);
+    margin: 16px 16px 0; width: calc(100% - 32px);
+    background: rgba(74,46,26,0.08); border: 1px solid var(--border);
     border-radius: 12px; padding: 14px;
     color: var(--text-dim); font-size: 14px; font-weight: 300;
-    font-family: 'Noto Sans TC', sans-serif; letter-spacing: 4px;
+    font-family: 'Noto Sans TC', sans-serif; letter-spacing: 3px;
     cursor: pointer; transition: all 0.3s;
   }
   .next-btn.ready {
-    background: linear-gradient(135deg, #7a1515, #b83030);
-    border-color: rgba(192,57,43,0.5); color: var(--gold-light);
-    box-shadow: 0 4px 20px rgba(192,57,43,0.3);
+    background: var(--brown);
+    border-color: var(--brown); color: #f5e6c8;
+    box-shadow: 0 4px 16px rgba(74,46,26,0.3);
   }
 
   /* SCREEN 2 */
   .form-wrap { padding: 24px 16px 0; }
-  .form-title { font-size: 18px; font-weight: 400; color: var(--gold-light); letter-spacing: 3px; text-align: center; margin-bottom: 6px; }
-  .form-sub { font-size: 12px; font-weight: 300; color: var(--text-dim); text-align: center; margin-bottom: 20px; letter-spacing: 1px; }
-  .selected-q-badge { display: flex; align-items: center; gap: 10px; background: rgba(201,168,76,0.08); border: 1px solid rgba(201,168,76,0.28); border-radius: 10px; padding: 10px 14px; margin-bottom: 20px; }
-  .badge-icon { font-size: 20px; }
-  .badge-text { font-size: 13px; font-weight: 400; color: var(--gold); }
-  .input-label { font-size: 12px; font-weight: 300; color: var(--text-dim); margin-bottom: 7px; display: block; letter-spacing: 1px; }
+  .form-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 18px; font-weight: 700; color: var(--brown);
+    letter-spacing: 2px; text-align: center; margin-bottom: 6px;
+  }
+  .form-sub { font-size: 12px; font-weight: 300; color: var(--text-dim); text-align: center; margin-bottom: 20px; }
+  .selected-q-badge {
+    display: flex; align-items: center; gap: 10px;
+    background: rgba(74,46,26,0.06); border: 1px solid var(--border);
+    border-radius: 10px; padding: 10px 14px; margin-bottom: 20px;
+  }
+  .badge-icon { font-size: 18px; }
+  .badge-text { font-size: 13px; font-weight: 400; color: var(--brown); }
+  .input-label { font-size: 12px; font-weight: 300; color: var(--text-dim); margin-bottom: 7px; display: block; }
   .input-group { margin-bottom: 14px; }
   .input-row { display: flex; gap: 8px; }
   .inp {
     flex: 1; width: 100%;
-    background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+    background: var(--card-bg); border: 1px solid var(--border);
     border-radius: 10px; padding: 11px 14px;
     color: var(--text); font-size: 14px; font-weight: 300;
     font-family: 'Noto Sans TC', sans-serif; outline: none; transition: border-color 0.2s;
+    backdrop-filter: blur(10px);
   }
-  .inp:focus { border-color: var(--gold); }
+  .inp:focus { border-color: var(--brown-light); }
   .inp::placeholder { color: var(--text-dim); }
-  select.inp { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23c9a84c' stroke-width='1.5' fill='none'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 30px; }
-  select.inp option { background: #2e1800; }
+  select.inp {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237a4f2e' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 12px center; padding-right: 30px;
+  }
+  select.inp option { background: #f7f0e6; color: var(--text); }
   .submit-btn {
     width: 100%; margin-top: 6px;
-    background: linear-gradient(135deg, #7a1515, #b83030, #7a1515);
-    border: 1px solid rgba(192,57,43,0.5); border-radius: 12px; padding: 15px;
-    color: var(--gold-light); font-size: 15px; font-weight: 300;
-    font-family: 'Noto Sans TC', sans-serif; letter-spacing: 5px;
-    cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 20px rgba(192,57,43,0.28);
+    background: var(--brown);
+    border: none; border-radius: 12px; padding: 15px;
+    color: #f5e6c8; font-size: 15px; font-weight: 300;
+    font-family: 'Noto Sans TC', sans-serif; letter-spacing: 4px;
+    cursor: pointer; transition: all 0.2s;
+    box-shadow: 0 4px 16px rgba(74,46,26,0.3);
   }
-  .submit-btn:active { transform: scale(0.98); }
+  .submit-btn:active { transform: scale(0.98); opacity: 0.9; }
 
   /* SCREEN 3 */
   .loading-wrap { text-align: center; padding: 80px 30px; }
-  .loading-symbol { font-size: 60px; display: block; margin-bottom: 24px; animation: spin-slow 4s linear infinite; }
+  .loading-symbol {
+    font-size: 56px; display: block; margin-bottom: 24px;
+    animation: spin-slow 4s linear infinite; color: var(--brown);
+  }
   @keyframes spin-slow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-  .loading-text { font-size: 16px; font-weight: 300; color: var(--gold); letter-spacing: 5px; }
+  .loading-text { font-size: 16px; font-weight: 300; color: var(--brown); letter-spacing: 5px; }
   .loading-text::after { content: ''; animation: dots 1.5s steps(4, end) infinite; }
   @keyframes dots { 0%{content:''} 25%{content:'．'} 50%{content:'．．'} 75%{content:'．．．'} }
   .loading-sub { font-size: 12px; font-weight: 300; color: var(--text-dim); margin-top: 10px; letter-spacing: 2px; }
 
   /* SCREEN 4 */
-  .result-wrap { padding: 24px 16px 0; }
-  .result-header { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
-  .result-avatar { width: 44px; height: 44px; flex-shrink: 0; background: linear-gradient(135deg, var(--gold), #8b6914); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; }
-  .result-name { font-size: 14px; font-weight: 400; color: var(--gold); }
-  .result-q { font-size: 12px; font-weight: 300; color: var(--text-dim); margin-top: 3px; }
-  .result-card { background: var(--card-bg); border: 1px solid rgba(201,168,76,0.3); border-radius: 16px; padding: 20px; margin-bottom: 14px; }
-  .result-body { font-size: 14px; font-weight: 300; color: var(--text); line-height: 2.1; letter-spacing: 0.5px; }
+  .result-wrap { padding: 20px 16px 0; }
+  .result-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+  .result-avatar {
+    width: 42px; height: 42px; flex-shrink: 0;
+    background: var(--brown); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; font-size: 18px;
+    color: #f5e6c8;
+  }
+  .result-name { font-size: 14px; font-weight: 500; color: var(--brown); }
+  .result-q { font-size: 12px; font-weight: 300; color: var(--text-dim); margin-top: 2px; }
+  .result-card {
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: 16px; padding: 20px; margin-bottom: 14px;
+    backdrop-filter: blur(10px);
+  }
+  .result-body { font-size: 14px; font-weight: 300; color: var(--text); line-height: 2.1; letter-spacing: 0.3px; }
   .result-body .highlight-title {
-    font-size: 22px; font-weight: 700; color: var(--gold-light);
-    text-align: center; letter-spacing: 4px;
-    margin: 16px 0; padding: 12px;
-    border: 1px solid rgba(201,168,76,0.4);
+    font-family: 'Noto Serif TC', serif;
+    font-size: 20px; font-weight: 700; color: var(--brown);
+    text-align: center; letter-spacing: 3px;
+    margin: 20px 0 16px; padding: 14px;
+    border: 1.5px solid rgba(120,70,30,0.3);
     border-radius: 10px;
-    background: rgba(201,168,76,0.08);
+    background: rgba(74,46,26,0.06);
   }
   .result-body .highlight-income {
-    font-size: 26px; font-weight: 700; color: var(--gold-light);
-    text-align: center; letter-spacing: 2px;
-    margin: 16px 0; padding: 14px;
-    border: 1px solid rgba(201,168,76,0.5);
+    font-family: 'Noto Serif TC', serif;
+    font-size: 22px; font-weight: 700; color: var(--brown);
+    text-align: center; letter-spacing: 1px;
+    margin: 20px 0; padding: 16px;
+    border: 1.5px solid rgba(120,70,30,0.3);
     border-radius: 10px;
-    background: rgba(201,168,76,0.12);
+    background: rgba(74,46,26,0.08);
   }
   .result-body .highlight-summary {
-    font-size: 16px; font-weight: 500; color: var(--gold-light);
-    text-align: center; letter-spacing: 2px;
-    margin: 16px 0; padding: 14px;
-    border-left: 3px solid var(--gold);
-    background: rgba(201,168,76,0.06);
+    font-size: 15px; font-weight: 500; color: var(--brown);
+    letter-spacing: 1px; line-height: 1.8;
+    margin: 20px 0; padding: 14px 16px;
+    border-left: 3px solid var(--brown);
+    background: rgba(74,46,26,0.05);
     border-radius: 0 10px 10px 0;
   }
-  .action-row { display: flex; gap: 10px; margin-top: 4px; }
-  .action-btn { flex: 1; background: var(--card-bg); border: 1px solid var(--border); border-radius: 10px; padding: 10px 8px; color: var(--text-dim); font-size: 12px; font-weight: 300; font-family: 'Noto Sans TC', sans-serif; cursor: pointer; text-align: center; transition: all 0.2s; }
-  .action-btn:active { border-color: var(--gold); color: var(--gold); }
-  .restart-btn { width: 100%; margin-top: 14px; background: transparent; border: 1px solid var(--border); border-radius: 12px; padding: 13px; color: var(--text-dim); font-size: 13px; font-weight: 300; font-family: 'Noto Sans TC', sans-serif; letter-spacing: 4px; cursor: pointer; transition: all 0.2s; }
-  .restart-btn:active { border-color: var(--gold); color: var(--gold); }
-  .error-msg { color: #e07070; font-size: 13px; text-align: center; padding: 12px; }
+
+  .restart-btn {
+    width: 100%; margin-top: 4px;
+    background: transparent; border: 1px solid var(--border);
+    border-radius: 12px; padding: 13px;
+    color: var(--text-dim); font-size: 13px; font-weight: 300;
+    font-family: 'Noto Sans TC', sans-serif; letter-spacing: 3px;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .restart-btn:active { border-color: var(--brown); color: var(--brown); }
+  .error-msg { color: #8b2020; font-size: 13px; text-align: center; padding: 12px; }
 </style>
 </head>
 <body>
@@ -197,40 +283,65 @@
   <header>
     <span class="logo-symbol">☯</span>
     <div class="logo-title">玄 機 閣</div>
-    <div class="logo-sub">AI 命理・玄學・占卜</div>
+    <div class="logo-sub">東方命理・AI 深度解析</div>
     <div class="divider"><span>✦</span></div>
   </header>
 
   <!-- SCREEN 1 -->
   <div class="screen active" id="screen-1">
-    <div class="question-prompt">
-      <h2>你對哪件事感到好奇？</h2>
-      <p>選擇一個你最想知道的方向</p>
+
+    <div class="hero-section">
+      <div class="hero-tag">千字深度命盤報告</div>
+      <div class="hero-title">你的命盤，藏著<br>你還不知道的答案</div>
+      <div class="hero-features">
+        <div class="hero-feature">
+          <span class="hero-feature-icon">📜</span>
+          <div class="hero-feature-text">千字深度報告，不模糊、不敷衍</div>
+        </div>
+        <div class="hero-feature">
+          <span class="hero-feature-icon">🎯</span>
+          <div class="hero-feature-text">清晰回答你的問題，具體可執行</div>
+        </div>
+        <div class="hero-feature">
+          <span class="hero-feature-icon">🔮</span>
+          <div class="hero-feature-text">真實紫微排盤，不是隨機文字</div>
+        </div>
+        <div class="hero-feature">
+          <span class="hero-feature-icon">💡</span>
+          <div class="hero-feature-text">分析你的人生命盤與性格格局</div>
+        </div>
+      </div>
     </div>
+
+    <div class="question-prompt">
+      <h2>你最想知道哪一件事？</h2>
+      <p>選擇一個方向，我為你深度解盤</p>
+    </div>
+
     <div class="question-grid">
-      <div class="q-card" onclick="selectQ(this,'wealth','💰','2026年的財運')">
+      <div class="q-card" onclick="selectQ(this,'wealth','💰','人生財運 + 2030年收入')">
         <div class="q-check">✓</div>
         <span class="q-icon">💰</span>
-        <div class="q-title">2026年的財運</div>
-        <div class="q-sub">錢財・投資・機遇</div>
+        <div class="q-title">人生財運</div>
+        <div class="q-sub">以及2030年的年收入範圍</div>
       </div>
-      <div class="q-card" onclick="selectQ(this,'love','🌸','2026年的異性緣')">
+      <div class="q-card" onclick="selectQ(this,'love','🌸','2026年的桃花運')">
         <div class="q-check">✓</div>
         <span class="q-icon">🌸</span>
-        <div class="q-title">2026年的異性緣</div>
-        <div class="q-sub">感情・桃花・緣分</div>
+        <div class="q-title">2026年的桃花運</div>
+        <div class="q-sub">感情・緣分・對象分析</div>
       </div>
-      <div class="q-card" onclick="selectQ(this,'health','🌿','2026年的健康運')">
+      <div class="q-card" onclick="selectQ(this,'health','🌿','身體健康狀況')">
         <div class="q-check">✓</div>
         <span class="q-icon">🌿</span>
-        <div class="q-title">2026年的健康運</div>
-        <div class="q-sub">身體・精神・活力</div>
+        <div class="q-title">身體健康狀況</div>
+        <div class="q-sub">體質・潛在風險・調養建議</div>
       </div>
-      <div class="q-card" onclick="selectQ(this,'overall','⭐','2026年的總運勢')">
+      <div class="q-card" onclick="selectQ(this,'overall','⭐','人生總運勢報告')">
         <div class="q-check">✓</div>
         <span class="q-icon">⭐</span>
-        <div class="q-title">2026年的總運勢</div>
-        <div class="q-sub">全方位・綜合解析</div>
+        <div class="q-title">人生總運勢報告</div>
+        <div class="q-sub">全方位・人生格局・轉捩點</div>
       </div>
     </div>
     <button class="next-btn" id="next-btn" onclick="goToStep2()">選 擇 後 繼 續</button>
@@ -239,11 +350,11 @@
   <!-- SCREEN 2 -->
   <div class="screen" id="screen-2">
     <div class="form-wrap">
-      <div class="form-title">告訴我你的生辰</div>
-      <div class="form-sub">命理推算需要你的基本資料</div>
+      <div class="form-title">輸入你的生辰資料</div>
+      <div class="form-sub">資料僅用於命盤推算，不會儲存</div>
       <div class="selected-q-badge">
         <span class="badge-icon" id="badge-icon">⭐</span>
-        <span class="badge-text" id="badge-text">2026年的總運勢</span>
+        <span class="badge-text" id="badge-text">人生總運勢報告</span>
       </div>
       <div class="input-group">
         <label class="input-label">姓名（可用暱稱）</label>
@@ -277,7 +388,7 @@
           </select>
         </div>
       </div>
-      <button class="submit-btn" onclick="doFortune()">✦ 開 始 占 卜 ✦</button>
+      <button class="submit-btn" onclick="doFortune()">開 始 解 盤</button>
     </div>
   </div>
 
@@ -285,8 +396,8 @@
   <div class="screen" id="screen-3">
     <div class="loading-wrap">
       <span class="loading-symbol">☯</span>
-      <div class="loading-text">天機推算中</div>
-      <div class="loading-sub">正在為你解讀命盤</div>
+      <div class="loading-text">命盤推算中</div>
+      <div class="loading-sub">正在為你撰寫深度報告</div>
     </div>
   </div>
 
@@ -303,12 +414,7 @@
       <div class="result-card">
         <div class="result-body" id="result-body"></div>
       </div>
-      <div class="action-row">
-        <button class="action-btn">📋 儲存結果</button>
-        <button class="action-btn">🔗 分享好友</button>
-        <button class="action-btn">💬 追問</button>
-      </div>
-      <button class="restart-btn" onclick="restart()">✦ 再問一個問題 ✦</button>
+      <button class="restart-btn" onclick="restart()">✦ 再解一個問題 ✦</button>
     </div>
   </div>
 
@@ -322,7 +428,7 @@
     selectedQ = type; selectedIcon = icon; selectedLabel = label;
     const btn = document.getElementById('next-btn');
     btn.classList.add('ready');
-    btn.textContent = '繼 續 ✦';
+    btn.textContent = '繼 續 →';
   }
 
   function setStep(n) {
@@ -342,10 +448,7 @@
 
   async function doFortune() {
     const birthDate = document.getElementById('birth-inp').value;
-    if (!birthDate) {
-      alert('請填入出生年月日');
-      return;
-    }
+    if (!birthDate) { alert('請填入出生年月日'); return; }
     const name = document.getElementById('name-inp').value || '命主';
     const timeIndex = document.getElementById('hour-inp').value;
     const gender = document.getElementById('gender-inp').value;
@@ -358,9 +461,8 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ birthDate, timeIndex: parseInt(timeIndex), gender, question: selectedQ, name }),
       });
-
       const data = await res.json();
-
+      document.getElementById('result-q-label').textContent = selectedLabel;
       if (data.error) {
         document.getElementById('result-body').innerHTML = `<span class="error-msg">${data.error}</span>`;
       } else {
@@ -369,8 +471,6 @@
     } catch (err) {
       document.getElementById('result-body').innerHTML = '<span class="error-msg">網路錯誤，請稍後再試。</span>';
     }
-
-    document.getElementById('result-q-label').textContent = selectedLabel;
     setStep(4);
   }
 
