@@ -16,21 +16,15 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700&family=Noto+Serif+TC:wght@400;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #f7f0e6;
-    --bg2: #efe4d2;
-    --bg3: #e8d9c4;
     --brown: #4a2e1a;
     --brown-mid: #7a4f2e;
     --brown-light: #a07048;
     --gold: #b8860b;
     --gold-light: #d4a017;
-    --cream: #fdf6ec;
     --text: #2c1a0e;
-    --text-mid: #6b4226;
     --text-dim: #a07858;
     --border: rgba(120,70,30,0.15);
     --card-bg: rgba(255,255,255,0.7);
-    --red: #8b2020;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -50,24 +44,16 @@
     position: fixed; inset: 0;
     background:
       radial-gradient(ellipse at 20% 10%, rgba(200,150,80,0.12) 0%, transparent 50%),
-      radial-gradient(ellipse at 80% 80%, rgba(160,100,40,0.1) 0%, transparent 50%),
-      radial-gradient(ellipse at 60% 30%, rgba(220,170,100,0.08) 0%, transparent 40%);
+      radial-gradient(ellipse at 80% 80%, rgba(160,100,40,0.1) 0%, transparent 50%);
     pointer-events: none; z-index: 0;
   }
 
   .wrap { position: relative; z-index: 1; max-width: 480px; margin: 0 auto; padding: 0 0 48px; }
 
   /* HEADER */
-  header { text-align: center; padding: 40px 20px 28px; }
-  .logo-symbol {
-    font-size: 48px; color: var(--brown); display: block; line-height: 1;
-    opacity: 0.85;
-  }
-  .logo-title {
-    font-family: 'Noto Serif TC', serif;
-    font-size: 30px; font-weight: 700; color: var(--brown);
-    letter-spacing: 10px; margin-top: 10px;
-  }
+  header { text-align: center; padding: 40px 20px 24px; }
+  .logo-symbol { font-size: 48px; color: var(--brown); display: block; line-height: 1; opacity: 0.85; }
+  .logo-title { font-family: 'Noto Serif TC', serif; font-size: 30px; font-weight: 700; color: var(--brown); letter-spacing: 10px; margin-top: 10px; }
   .logo-sub { font-size: 11px; font-weight: 300; color: var(--text-dim); letter-spacing: 4px; margin-top: 6px; }
   .divider { display: flex; align-items: center; gap: 10px; margin: 20px 20px 0; }
   .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
@@ -78,7 +64,7 @@
   .screen.active { display: block; animation: fadeUp 0.4s ease; }
   @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
 
-  /* SCREEN 1 */
+  /* SCREEN 1: HERO + FORM */
   .hero-section {
     margin: 24px 16px 0;
     background: var(--brown);
@@ -100,7 +86,7 @@
     color: var(--gold-light);
     font-size: 11px; letter-spacing: 3px;
     padding: 4px 14px; border-radius: 20px;
-    margin-bottom: 16px;
+    margin-bottom: 16px; position: relative;
   }
   .hero-title {
     font-family: 'Noto Serif TC', serif;
@@ -111,81 +97,20 @@
   }
   .hero-features {
     display: grid; grid-template-columns: 1fr 1fr;
-    gap: 8px; margin-top: 20px;
+    gap: 8px; margin-top: 20px; position: relative;
   }
   .hero-feature {
     background: rgba(255,255,255,0.07);
     border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 10px; padding: 10px 12px;
-    text-align: left;
+    border-radius: 10px; padding: 10px 12px; text-align: left;
   }
   .hero-feature-icon { font-size: 16px; margin-bottom: 4px; display: block; }
   .hero-feature-text { font-size: 12px; color: rgba(245,230,200,0.8); line-height: 1.5; font-weight: 300; }
 
-  .question-prompt { text-align: center; padding: 24px 24px 16px; }
-  .question-prompt h2 {
-    font-family: 'Noto Serif TC', serif;
-    font-size: 18px; font-weight: 700; color: var(--brown);
-    letter-spacing: 2px; line-height: 1.7;
-  }
-  .question-prompt p { font-size: 12px; font-weight: 300; color: var(--text-dim); margin-top: 6px; }
-
-  .question-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 0 16px; }
-  .q-card {
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: 14px; padding: 18px 12px 16px;
-    cursor: pointer; transition: all 0.2s; text-align: center;
-    position: relative; overflow: hidden;
-    backdrop-filter: blur(10px);
-  }
-  .q-card:active, .q-card.selected {
-    transform: scale(0.97);
-    border-color: var(--brown-light);
-    background: rgba(160,112,72,0.12);
-  }
-  .q-card.selected { border-color: var(--brown); }
-  .q-icon { font-size: 30px; display: block; margin-bottom: 8px; }
-  .q-title { font-size: 13px; font-weight: 500; color: var(--brown); letter-spacing: 0.5px; line-height: 1.5; }
-  .q-sub { font-size: 10px; font-weight: 300; color: var(--text-dim); margin-top: 4px; line-height: 1.5; }
-  .q-check {
-    position: absolute; top: 8px; right: 8px;
-    width: 18px; height: 18px; border-radius: 50%;
-    background: var(--brown); color: #fff;
-    font-size: 10px; font-weight: 700;
-    display: none; align-items: center; justify-content: center;
-  }
-  .q-card.selected .q-check { display: flex; }
-
-  .next-btn {
-    margin: 16px 16px 0; width: calc(100% - 32px);
-    background: rgba(74,46,26,0.08); border: 1px solid var(--border);
-    border-radius: 12px; padding: 14px;
-    color: var(--text-dim); font-size: 14px; font-weight: 300;
-    font-family: 'Noto Sans TC', sans-serif; letter-spacing: 3px;
-    cursor: pointer; transition: all 0.3s;
-  }
-  .next-btn.ready {
-    background: var(--brown);
-    border-color: var(--brown); color: #f5e6c8;
-    box-shadow: 0 4px 16px rgba(74,46,26,0.3);
-  }
-
-  /* SCREEN 2 */
+  /* FORM */
   .form-wrap { padding: 24px 16px 0; }
-  .form-title {
-    font-family: 'Noto Serif TC', serif;
-    font-size: 18px; font-weight: 700; color: var(--brown);
-    letter-spacing: 2px; text-align: center; margin-bottom: 6px;
-  }
+  .form-title { font-family: 'Noto Serif TC', serif; font-size: 18px; font-weight: 700; color: var(--brown); letter-spacing: 2px; text-align: center; margin-bottom: 6px; }
   .form-sub { font-size: 12px; font-weight: 300; color: var(--text-dim); text-align: center; margin-bottom: 20px; }
-  .selected-q-badge {
-    display: flex; align-items: center; gap: 10px;
-    background: rgba(74,46,26,0.06); border: 1px solid var(--border);
-    border-radius: 10px; padding: 10px 14px; margin-bottom: 20px;
-  }
-  .badge-icon { font-size: 18px; }
-  .badge-text { font-size: 13px; font-weight: 400; color: var(--brown); }
   .input-label { font-size: 12px; font-weight: 300; color: var(--text-dim); margin-bottom: 7px; display: block; }
   .input-group { margin-bottom: 14px; }
   .input-row { display: flex; gap: 8px; }
@@ -207,8 +132,7 @@
   select.inp option { background: #f7f0e6; color: var(--text); }
   .submit-btn {
     width: 100%; margin-top: 6px;
-    background: var(--brown);
-    border: none; border-radius: 12px; padding: 15px;
+    background: var(--brown); border: none; border-radius: 12px; padding: 15px;
     color: #f5e6c8; font-size: 15px; font-weight: 300;
     font-family: 'Noto Sans TC', sans-serif; letter-spacing: 4px;
     cursor: pointer; transition: all 0.2s;
@@ -216,57 +140,56 @@
   }
   .submit-btn:active { transform: scale(0.98); opacity: 0.9; }
 
-  /* SCREEN 3 */
+  /* SCREEN 2: LOADING */
   .loading-wrap { text-align: center; padding: 80px 30px; }
-  .loading-symbol {
-    font-size: 56px; display: block; margin-bottom: 24px;
-    animation: spin-slow 4s linear infinite; color: var(--brown);
-  }
+  .loading-symbol { font-size: 56px; display: block; margin-bottom: 24px; animation: spin-slow 4s linear infinite; color: var(--brown); }
   @keyframes spin-slow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
   .loading-text { font-size: 16px; font-weight: 300; color: var(--brown); letter-spacing: 5px; }
   .loading-text::after { content: ''; animation: dots 1.5s steps(4, end) infinite; }
   @keyframes dots { 0%{content:''} 25%{content:'．'} 50%{content:'．．'} 75%{content:'．．．'} }
   .loading-sub { font-size: 12px; font-weight: 300; color: var(--text-dim); margin-top: 10px; letter-spacing: 2px; }
 
-  /* SCREEN 4 */
+  /* SCREEN 3: RESULT */
   .result-wrap { padding: 20px 16px 0; }
   .result-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
-  .result-avatar {
-    width: 42px; height: 42px; flex-shrink: 0;
-    background: var(--brown); border-radius: 50%;
-    display: flex; align-items: center; justify-content: center; font-size: 18px;
-    color: #f5e6c8;
-  }
+  .result-avatar { width: 42px; height: 42px; flex-shrink: 0; background: var(--brown); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; color: #f5e6c8; }
   .result-name { font-size: 14px; font-weight: 500; color: var(--brown); }
   .result-q { font-size: 12px; font-weight: 300; color: var(--text-dim); margin-top: 2px; }
-  .result-card {
+
+  .result-section {
     background: var(--card-bg); border: 1px solid var(--border);
-    border-radius: 16px; padding: 20px; margin-bottom: 14px;
+    border-radius: 16px; padding: 20px; margin-bottom: 12px;
     backdrop-filter: blur(10px);
+  }
+  .result-section-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 15px; font-weight: 700; color: var(--brown);
+    letter-spacing: 2px; margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 8px;
   }
   .result-body { font-size: 14px; font-weight: 300; color: var(--text); line-height: 2.1; letter-spacing: 0.3px; }
   .result-body .highlight-title {
     font-family: 'Noto Serif TC', serif;
     font-size: 20px; font-weight: 700; color: var(--brown);
     text-align: center; letter-spacing: 3px;
-    margin: 20px 0 16px; padding: 14px;
+    margin: 16px 0; padding: 14px;
     border: 1.5px solid rgba(120,70,30,0.3);
-    border-radius: 10px;
-    background: rgba(74,46,26,0.06);
+    border-radius: 10px; background: rgba(74,46,26,0.06);
   }
   .result-body .highlight-income {
     font-family: 'Noto Serif TC', serif;
     font-size: 22px; font-weight: 700; color: var(--brown);
     text-align: center; letter-spacing: 1px;
-    margin: 20px 0; padding: 16px;
+    margin: 16px 0; padding: 16px;
     border: 1.5px solid rgba(120,70,30,0.3);
-    border-radius: 10px;
-    background: rgba(74,46,26,0.08);
+    border-radius: 10px; background: rgba(74,46,26,0.08);
   }
   .result-body .highlight-summary {
     font-size: 15px; font-weight: 500; color: var(--brown);
     letter-spacing: 1px; line-height: 1.8;
-    margin: 20px 0; padding: 14px 16px;
+    margin: 16px 0; padding: 14px 16px;
     border-left: 3px solid var(--brown);
     background: rgba(74,46,26,0.05);
     border-radius: 0 10px 10px 0;
@@ -294,12 +217,11 @@
     <div class="divider"><span>✦</span></div>
   </header>
 
-  <!-- SCREEN 1 -->
+  <!-- SCREEN 1: HERO + FORM -->
   <div class="screen active" id="screen-1">
-
     <div class="hero-section">
-      <div class="hero-tag">千字深度命盤報告</div>
-      <div class="hero-title">你的命盤，藏著<br>你還不知道的答案</div>
+      <div class="hero-tag">人生總運勢報告</div>
+      <div class="hero-title">屬於你的千字詳細人生報告</div>
       <div class="hero-features">
         <div class="hero-feature">
           <span class="hero-feature-icon">📜</span>
@@ -320,49 +242,9 @@
       </div>
     </div>
 
-    <div class="question-prompt">
-      <h2>你最想知道哪一件事？</h2>
-      <p>選擇一個方向，我為你深度解盤</p>
-    </div>
-
-    <div class="question-grid">
-      <div class="q-card" onclick="selectQ(this,'wealth','💰','人生財運 + 2030年收入')">
-        <div class="q-check">✓</div>
-        <span class="q-icon">💰</span>
-        <div class="q-title">人生財運</div>
-        <div class="q-sub">以及2030年的年收入範圍</div>
-      </div>
-      <div class="q-card" onclick="selectQ(this,'love','🌸','2026年的桃花運')">
-        <div class="q-check">✓</div>
-        <span class="q-icon">🌸</span>
-        <div class="q-title">2026年的桃花運</div>
-        <div class="q-sub">感情・緣分・對象分析</div>
-      </div>
-      <div class="q-card" onclick="selectQ(this,'health','🌿','身體健康狀況')">
-        <div class="q-check">✓</div>
-        <span class="q-icon">🌿</span>
-        <div class="q-title">身體健康狀況</div>
-        <div class="q-sub">體質・潛在風險・調養建議</div>
-      </div>
-      <div class="q-card" onclick="selectQ(this,'overall','⭐','人生總運勢報告')">
-        <div class="q-check">✓</div>
-        <span class="q-icon">⭐</span>
-        <div class="q-title">人生總運勢報告</div>
-        <div class="q-sub">全方位・人生格局・轉捩點</div>
-      </div>
-    </div>
-    <button class="next-btn" id="next-btn" onclick="goToStep2()">選 擇 後 繼 續</button>
-  </div>
-
-  <!-- SCREEN 2 -->
-  <div class="screen" id="screen-2">
     <div class="form-wrap">
       <div class="form-title">輸入你的生辰資料</div>
       <div class="form-sub">資料僅用於命盤推算，不會儲存</div>
-      <div class="selected-q-badge">
-        <span class="badge-icon" id="badge-icon">⭐</span>
-        <span class="badge-text" id="badge-text">人生總運勢報告</span>
-      </div>
       <div class="input-group">
         <label class="input-label">姓名（可用暱稱）</label>
         <input class="inp" type="text" id="name-inp" placeholder="例：小明" />
@@ -399,8 +281,8 @@
     </div>
   </div>
 
-  <!-- SCREEN 3 -->
-  <div class="screen" id="screen-3">
+  <!-- SCREEN 2: LOADING -->
+  <div class="screen" id="screen-2">
     <div class="loading-wrap">
       <span class="loading-symbol">☯</span>
       <div class="loading-text">命盤推算中</div>
@@ -408,49 +290,86 @@
     </div>
   </div>
 
-  <!-- SCREEN 4 -->
-  <div class="screen" id="screen-4">
+  <!-- SCREEN 3: RESULT -->
+  <div class="screen" id="screen-3">
     <div class="result-wrap">
       <div class="result-header">
         <div class="result-avatar">☯</div>
         <div>
           <div class="result-name">玄機閣命理師</div>
-          <div class="result-q" id="result-q-label"></div>
+          <div class="result-q">人生總運勢報告</div>
         </div>
       </div>
-      <div class="result-card">
-        <div class="result-body" id="result-body"></div>
-      </div>
-      <button class="restart-btn" onclick="restart()">✦ 再解一個問題 ✦</button>
+      <div id="result-sections"></div>
+      <button class="restart-btn" onclick="restart()">✦ 重新解盤 ✦</button>
     </div>
   </div>
 
 </div>
 <script>
-  let selectedQ = null, selectedIcon = '', selectedLabel = '';
-
-  function selectQ(el, type, icon, label) {
-    document.querySelectorAll('.q-card').forEach(c => c.classList.remove('selected'));
-    el.classList.add('selected');
-    selectedQ = type; selectedIcon = icon; selectedLabel = label;
-    const btn = document.getElementById('next-btn');
-    btn.classList.add('ready');
-    btn.textContent = '繼 續 →';
-  }
-
   function setStep(n) {
-    for (let i = 1; i <= 4; i++) {
-      document.getElementById('screen-' + i).classList.remove('active');
-    }
+    for (let i = 1; i <= 3; i++) document.getElementById('screen-' + i).classList.remove('active');
     document.getElementById('screen-' + n).classList.add('active');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  function goToStep2() {
-    if (!selectedQ) return;
-    document.getElementById('badge-icon').textContent = selectedIcon;
-    document.getElementById('badge-text').textContent = selectedLabel;
-    setStep(2);
+  function renderSections(html) {
+    const sectionDefs = [
+      { key: '命格總論', icon: '🏮' },
+      { key: '命格分析', icon: '🏮' },
+      { key: '命主命格', icon: '🏮' },
+      { key: '運勢解析', icon: '🔮' },
+      { key: '總運勢', icon: '🔮' },
+      { key: '人生總運', icon: '🔮' },
+      { key: '收入預測', icon: '💰' },
+      { key: '年收入', icon: '💰' },
+      { key: '行為建議', icon: '💡' },
+      { key: '具體建議', icon: '💡' },
+    ];
+
+    const sectionTitles = [
+      { title: '一、命格總論與性格分析', icon: '🏮' },
+      { title: '二、人生總運勢深度解析', icon: '🔮' },
+      { title: '三、行為建議', icon: '💡' },
+    ];
+
+    // Split by highlight-title divs or natural paragraph breaks
+    const parts = html.split(/(?=<div class="highlight-title">)/);
+
+    // If we can identify clear sections by keywords, split them
+    const fullText = html;
+    const section1End = fullText.search(/人生總運勢|運勢解析|第二段|二、/);
+    const section2End = fullText.search(/行為建議|具體建議|第三段|三、/);
+
+    let s1, s2, s3;
+    if (section1End > 0 && section2End > section1End) {
+      s1 = fullText.substring(0, section1End);
+      s2 = fullText.substring(section1End, section2End);
+      s3 = fullText.substring(section2End);
+    } else {
+      // fallback: split into 3 roughly equal parts
+      const third = Math.floor(fullText.length / 3);
+      s1 = fullText.substring(0, third);
+      s2 = fullText.substring(third, third * 2);
+      s3 = fullText.substring(third * 2);
+    }
+
+    const sections = [
+      { title: '命格總論與性格分析', icon: '🏮', content: s1 },
+      { title: '人生總運勢深度解析', icon: '🔮', content: s2 },
+      { title: '行為建議', icon: '💡', content: s3 },
+    ];
+
+    const container = document.getElementById('result-sections');
+    container.innerHTML = sections.map(sec => `
+      <div class="result-section">
+        <div class="result-section-title">
+          <span>${sec.icon}</span>
+          <span>${sec.title}</span>
+        </div>
+        <div class="result-body">${sec.content}</div>
+      </div>
+    `).join('');
   }
 
   async function doFortune() {
@@ -460,33 +379,27 @@
     const timeIndex = document.getElementById('hour-inp').value;
     const gender = document.getElementById('gender-inp').value;
 
-    setStep(3);
+    setStep(2);
 
     try {
       const res = await fetch('/api/fortune', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ birthDate, timeIndex: parseInt(timeIndex), gender, question: selectedQ, name }),
+        body: JSON.stringify({ birthDate, timeIndex: parseInt(timeIndex), gender, question: 'overall', name }),
       });
       const data = await res.json();
-      document.getElementById('result-q-label').textContent = selectedLabel;
       if (data.error) {
-        document.getElementById('result-body').innerHTML = `<span class="error-msg">${data.error}</span>`;
+        document.getElementById('result-sections').innerHTML = `<div class="result-section"><span class="error-msg">${data.error}</span></div>`;
       } else {
-        document.getElementById('result-body').innerHTML = data.result;
+        renderSections(data.result);
       }
     } catch (err) {
-      document.getElementById('result-body').innerHTML = '<span class="error-msg">網路錯誤，請稍後再試。</span>';
+      document.getElementById('result-sections').innerHTML = '<div class="result-section"><span class="error-msg">網路錯誤，請稍後再試。</span></div>';
     }
-    setStep(4);
+    setStep(3);
   }
 
   function restart() {
-    selectedQ = null; selectedIcon = ''; selectedLabel = '';
-    document.querySelectorAll('.q-card').forEach(c => c.classList.remove('selected'));
-    const btn = document.getElementById('next-btn');
-    btn.classList.remove('ready');
-    btn.textContent = '選 擇 後 繼 續';
     document.getElementById('birth-inp').value = '';
     document.getElementById('name-inp').value = '';
     setStep(1);
